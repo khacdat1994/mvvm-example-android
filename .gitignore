@@ -18,8 +18,9 @@ out/
 # release/
 
 # Gradle files
+mvvm-retrofit/gradle
 .gradle/
-build/
+mvvm-retrofit/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -37,6 +38,7 @@ proguard/
 captures/
 
 # IntelliJ
+mvvm-retrofit/.idea/
 *.iml
 .idea/workspace.xml
 .idea/tasks.xml

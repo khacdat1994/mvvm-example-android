@@ -1,0 +1,14 @@
+package com.pigapps.ringtones.mvvvmretrofit.api;
+
+import com.pigapps.ringtones.mvvvmretrofit.model.User;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
+public interface GitHubService {
+    @GET("users/{user}/repos")
+    Call<List<User>> listRepos(@Path("user") String user);
+}
