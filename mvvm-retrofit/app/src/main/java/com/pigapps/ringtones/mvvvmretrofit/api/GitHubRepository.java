@@ -14,7 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
+@Singleton
 public class GitHubRepository {
     private static final String TAG = "GitHubRepository";
     private GitHubService gitHubService;
