@@ -15,16 +15,6 @@ public abstract class ViewModelModule {
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);
 
-
-    /*
-     * This method basically says
-     * inject this object into a Map using the @IntoMap annotation,
-     * with the  MovieListViewModel.class as key,
-     * and a Provider that will build a MovieListViewModel
-     * object.
-     *
-     * */
-
     @Binds
     @IntoMap
     @ViewModelKey(MainViewModel.class)

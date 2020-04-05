@@ -20,7 +20,7 @@ import com.pigapps.ringtones.mvvvmretrofit.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainViewModel2 extends BaseObservable {
+public class MainViewModel_ extends BaseObservable {
     private GitHubRepository repository;
     private MutableLiveData liveData;
 
@@ -56,7 +56,7 @@ public class MainViewModel2 extends BaseObservable {
 //        this.adapter = adapter;
 //    }
 
-    public MainViewModel2() {
+    public MainViewModel_() {
         if (repository == null) {
             //repository = new GitHubRepository();
         }

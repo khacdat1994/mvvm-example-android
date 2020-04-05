@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pigapps.ringtones.mvvvmretrofit.App;
 import com.pigapps.ringtones.mvvvmretrofit.R;
 import com.pigapps.ringtones.mvvvmretrofit.adapter.UserAdapter;
 import com.pigapps.ringtones.mvvvmretrofit.databinding.FragmentFirstBinding;
@@ -23,22 +24,15 @@ import com.pigapps.ringtones.mvvvmretrofit.viewmodel.MainViewModel;
 
 import javax.inject.Inject;
 
-import dagger.android.support.AndroidSupportInjection;
-
 public class FirstFragment extends Fragment implements UserAdapter.OnClickItemListenner {
 
+    @Inject
     MainViewModel mainViewModel;
     private RecyclerView recyclerView;
     private UserAdapter adapter;
 
-    @Inject
-    ViewModelFactory viewModelFactory;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        AndroidSupportInjection.inject(this);
-    }
+    //@Inject
+    //ViewModelFactory viewModelFactory;
 
     @Override
     public View onCreateView(
@@ -50,7 +44,7 @@ public class FirstFragment extends Fragment implements UserAdapter.OnClickItemLi
         recyclerView = binding.list;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
+        //mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel.class);
 
         binding.setViewModel(mainViewModel);
         //
@@ -59,6 +53,12 @@ public class FirstFragment extends Fragment implements UserAdapter.OnClickItemLi
         mainViewModel.listUsers("octocat");
         //
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        App.component.inject(this);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {

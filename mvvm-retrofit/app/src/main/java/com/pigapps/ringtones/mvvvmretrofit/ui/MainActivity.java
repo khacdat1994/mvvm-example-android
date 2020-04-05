@@ -2,6 +2,7 @@ package com.pigapps.ringtones.mvvvmretrofit.ui;
 
 import android.os.Bundle;
 
+import com.pigapps.ringtones.mvvvmretrofit.App;
 import com.pigapps.ringtones.mvvvmretrofit.R;
 import com.pigapps.ringtones.mvvvmretrofit.adapter.UserAdapter;
 import com.pigapps.ringtones.mvvvmretrofit.di.ViewModelFactory;
@@ -22,26 +23,12 @@ import android.view.View;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
-
-public class MainActivity extends AppCompatActivity implements HasSupportFragmentInjector{
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
-
-    @Override
-    public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
-        return dispatchingAndroidInjector;
-    }
-
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
+        App.component.inject(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
