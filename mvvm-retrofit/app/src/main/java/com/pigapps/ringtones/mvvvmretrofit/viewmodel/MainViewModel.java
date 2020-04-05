@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pigapps.ringtones.mvvvmretrofit.adapter.UserAdapter;
 import com.pigapps.ringtones.mvvvmretrofit.api.GitHubRepository;
+import com.pigapps.ringtones.mvvvmretrofit.api.GitHubService;
 import com.pigapps.ringtones.mvvvmretrofit.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class MainViewModel extends ViewModel {
     private GitHubRepository repository;
@@ -38,10 +41,9 @@ public class MainViewModel extends ViewModel {
         this.adapter = adapter;
     }
 
-    public MainViewModel() {
-        if (repository == null) {
-            repository = new GitHubRepository();
-        }
+    @Inject
+    public MainViewModel(GitHubRepository repository) {
+        this.repository = repository;
     }
 
     private Observer observe = new Observer<List<User>>() {

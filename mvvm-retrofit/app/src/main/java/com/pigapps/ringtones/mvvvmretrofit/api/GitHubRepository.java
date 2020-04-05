@@ -6,21 +6,28 @@ import com.pigapps.ringtones.mvvvmretrofit.model.User;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class GitHubRepository {
     private static final String TAG = "GitHubRepository";
+    private GitHubService gitHubService;
 
-    public GitHubRepository() {
-
+    @Inject
+    public GitHubRepository(GitHubService gitHubService) {
+        this.gitHubService = gitHubService;
     }
 
     public MutableLiveData<List<User>> getListUsers(String name) {
         final MutableLiveData<List<User>> mutableLiveData = new MutableLiveData<>();
 
-        GitHubClient.getService().listRepos(name).enqueue(new Callback<List<User>>() {
+        gitHubService.listRepos(name).enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful()) {

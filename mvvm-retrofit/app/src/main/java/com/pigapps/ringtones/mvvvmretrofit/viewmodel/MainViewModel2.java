@@ -58,7 +58,7 @@ public class MainViewModel2 extends BaseObservable {
 
     public MainViewModel2() {
         if (repository == null) {
-            repository = new GitHubRepository();
+            //repository = new GitHubRepository();
         }
     }
 

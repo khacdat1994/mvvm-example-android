@@ -3,14 +3,15 @@ package com.pigapps.ringtones.mvvvmretrofit.ui;
 import android.os.Bundle;
 
 import com.pigapps.ringtones.mvvvmretrofit.R;
-import com.pigapps.ringtones.mvvvmretrofit.databinding.ActivityMainBinding;
 import com.pigapps.ringtones.mvvvmretrofit.adapter.UserAdapter;
+import com.pigapps.ringtones.mvvvmretrofit.di.ViewModelFactory;
+import com.pigapps.ringtones.mvvvmretrofit.model.User;
 import com.pigapps.ringtones.mvvvmretrofit.viewmodel.MainViewModel;
-import com.pigapps.ringtones.mvvvmretrofit.viewmodel.MainViewModel2;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,60 +20,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import javax.inject.Inject;
 
-    private MainViewModel mainViewModel;
-    private UserAdapter adapter;
-    private RecyclerView recyclerView;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
+public class MainActivity extends AppCompatActivity implements HasSupportFragmentInjector{
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+
+    @Override
+    public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final ActivityMainBinding activityMainBinding =
-                DataBindingUtil.setContentView(this, R.layout.activity_main);
-        // bind RecyclerView
-        recyclerView = activityMainBinding.list;
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerView.setHasFixedSize(true);
-        //
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        //mainViewModel = new MainViewModel2();
-        activityMainBinding.setViewModel(mainViewModel);
-        //
-        adapter = new UserAdapter();
-        mainViewModel.setAdapter(adapter);
-        mainViewModel.listUsers("octocat");
-        //mainViewModel.setAdapter(adapter);
-        //mainViewModel.getAllUsers("octocat");
-
-
-        //getData("octocat");
-
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //getData("khacdat1994");
-                //mainViewModel.getAllUsers("khacdat1994");
-                mainViewModel.listUsers("khacdat1994");
-            }
-        });
     }
-
-//    private void getData(String name) {
-//        mainViewModel.getAllUsers(name).observe(this, new Observer<List<User>>() {
-//            @Override
-//            public void onChanged(List<User> users) {
-//                adapter.setUser(users);
-//            }
-//        });
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,5 +68,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }
